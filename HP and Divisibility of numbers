@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+public class TestClass {
+    public static void main(String[] args) throws IOException {
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        while(T-- > 0){
+            long n = in.nextInt();
+            long a = in.nextInt();
+            long b = in.nextInt();
+            long c = in.nextInt();
+            long out_ = divisibilty(a, c, b, n);
+            System.out.println(out_);
+         }
+         in.close();
+    }
+    static long divisibilty(long a, long c, long b, long n){
+        
+        long count = (n/a) + (n/b) + (n/c);
+        long temp = (n/(a*b)) + (n/(a*c)) + (n/(b*c)) ;
+        
+        return count-temp + (n/(a*b*c)) ;
+    }
+}
