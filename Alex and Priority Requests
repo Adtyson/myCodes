@@ -60,3 +60,30 @@ The Priority Value at highest time (i.e t=5 ) is 2.
 We remove the Priority Value set at time 2 i.e we now just have Priority Value = 10 at time 2.
 The minimum and maximum Priority Value present in the list are 10,10 .
 */
+
+import java.util.* ;
+import java.lang.* ;
+import java.io.* ;
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        Scanner s = new Scanner(System.in);
+        int q = s.nextInt();
+        while(q-- >0){
+            Switch(s.next()){
+                case '1':
+                    update(s.nextInt(), s.nextInt()) ;
+                    break ;
+                case '2': remove(s.nextInt()) ;
+                    break ;
+                case '3': display() ;
+                    break ;
+                case '4': print() ;
+                    break ;
+            }
+        }
+        s.close() ;
+    }
+    
+    static void update
+}
