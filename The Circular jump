@@ -1,0 +1,79 @@
+/* 
+PROBLEM STATEMENT
+There are N chairs arranged around a circular table. Each chair has a number Num_i written on it.
+Any person sitting on a chair i can jump Num_i number of indices towards left or right,
+You are sitting on chair X and you have to reach chair Y.
+Tell the minimum number of jumps required by you. If its impossible to reach then print −1.
+
+Example :- If your sitting on chair 4 and it has number 2 written on it then you can either jump to chair number 2 or chair number 6.
+
+Constraints 
+1<=T<=100
+1<=T<=100 
+1<=N<=10^4
+1<=Numi<=10^9
+1<=X,Y<=N
+Format of the input file:
+First line : T i.e number of testcases.
+For each testcase :
+First line : Three space separated integers N , X and Y.
+Second line : N space separated integers denoting the chNum.
+
+Format of the output file:
+For each testcase print the answer in a separate line.
+
+Sample Input
+1
+5 1 5
+2 1 2 3 4
+Sample Output
+2
+Explanation
+For the given testcase we can jump from chair 1 to chair 3 and from chair 3 to chair 5 hence we can reach chair 5 in exactly 2 jumps.
+*/
+
+import java.util.* ;
+import java.lang.* ;
+import java.io.* ;
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        Scanner s = new Scanner(System.in);
+        int T = s.nextInt();
+        while(T-- >0){
+            int n = s.nextInt();
+            int x = s.nextInt();
+            int y = s.nextInt();
+            int table[] = new int[n] ;
+            int cache[][] = new int[n][n] ;
+            for(int i=0;i<n;++i){
+                table[i] = s.nextInt();
+            }
+            int jumps = loweJumps(table, x-1, y-1,cache) ;
+            /*for(int i=b,jumps=0;i!=a;++jumps){
+                int temp ;
+                if(i+arr[i] >= n && i-arr[i] < 0){
+                    i = Math.min(table[i]-n+i+1 , n+i-table[i]) ;
+                }
+            }*/
+            System.out.println(jumps) ;
+        }
+        s.close() ;
+    }
+    static int loweJumps(int[] arr, int a, int b,int[][] cache){
+        if(a == b)
+            return 0 ;
+        else if(cache[a][b] != 0)
+            return cache[a][b] ;
+        else if(a+arr[a] >= arr.length && a-arr[a] < 0){
+            return cache[a][b]=1 + Math.min(loweJumps(arr,arr[a]-arr.length+a+1,b,cache), loweJumps(arr,arr.length+a-arr[a],b,cache)) ;
+        }
+        else if(a+arr[a] >= arr.length){
+            return cache[a][b]=1 + Math.min(loweJumps(arr,arr[a]-arr.length+a+1,b,cache), loweJumps(arr,a-arr[a],b,cache)) ;
+        }
+        else if(a-arr[a] < 0){
+            return cache[a][b]=1 + Math.min(loweJumps(arr,a+arr[a],b,cache) , loweJumps(arr,arr.length+a-arr[a],b,cache)) ;
+        }
+        return cache[a][b]=1 + Math.min(loweJumps(arr,a+arr[a],b,cache) , loweJumps(arr,a-arr[a],b,cache)) ;
+    }
+}
