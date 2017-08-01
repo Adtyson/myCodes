@@ -1,0 +1,56 @@
+/*
+PROBLEM STATEMENT
+You are given a grid of size n×n filled with numbers in each of its cells.
+Now you need to count total cells in the grid such that the sum of the numbers on its top, left, right and bottom cells is a prime number.
+In case there is no cell in a particular direction assume the number to be as 0. 
+Input:
+First line contains a number n as input denoting size of the grid.
+Next n lines contain n numbers each denoting value of the elements of the grid in each row.
+Output:
+In the output you have to give the count of total cells as described above.
+Constraints 
+2≤n≤100 
+1≤g[i][j]≤100 where g[i][j] is the value in the grid at ith row and jth column.
+
+SAMPLE INPUT 
+2
+1 2
+3 4
+SAMPLE OUTPUT 
+4
+Explanation
+In the given grid if we pick the first element that is 1 then to its right and bottom are 2 and 3 whose sum is 5 and so its prime.
+Note that to the left there is no element so we consider it as 0 and same goes for the up direction.
+Checking this for all yields that all the four cells contribute to the count of cells whose sum of the adjacent cell values is prime.
+*/
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n, count = 0 ;
+    cin >> n ;
+    int arr[n+2][n+2] ;
+    for(int i=0; i<n+2; ++i)
+        for(int j=0; j<n+2; ++j){
+            if(i==0 || j==0 || i==n+1 || j== n+1)
+                arr[i][j] = 0 ;
+            else 
+                cin >> arr[i][j] ;
+        }
+    int prime[78] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397};
+    for(int i=1; i<n+1; ++i){
+        for(int j=1;j<n+1;++j){
+            int sum = arr[i][j-1] + arr[i][j+1] + arr[i+1][j] + arr[i-1][j];
+            for(int k=0;k<78;++k)
+                if(sum == prime[k])
+                    count++ ;
+        }
+    }
+    cout << count << endl;
+    return 0;
+}
+STATS:
+Time 
+C++ ~ 1.08667, Java ~ 1.53644 
